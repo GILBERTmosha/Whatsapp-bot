@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WhatsApp Bot Linker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #e5ddd5; }
+        .card { background: white; padding: 20px; border-radius: 10px; display: inline-block; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input { padding: 12px; width: 250px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px; }
+        button { padding: 12px 20px; background: #25D366; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        #result { margin-top: 20px; font-size: 24px; color: #075E54; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>WhatsApp Bot Pairing</h2>
+        <p>Ingiza namba (Mfano: 255712345678)</p>
+        <input type="text" id="num" placeholder="255XXXXXXXXX"><br>
+        <button onclick="getCode()">PATA CODE</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function getCode() {
+            const namba = document.getElementById('num').value;
+            const resDiv = document.getElementById('result');
+            resDiv.innerText = "Inatafuta code...";
+            try {
+                const response = await fetch('/pair?number=' + namba);
+                const data = await response.json();
+                resDiv.innerText = data.code ? "CODE YAKO: " + data.code : "Jaribu tena!";
+            } catch (e) { resDiv.innerText = "Error!"; }
+        }
+    </script>
+</body>
+</html>
